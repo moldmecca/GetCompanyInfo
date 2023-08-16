@@ -1,0 +1,150 @@
+openapi: 3.0.2
+info:
+  title: MoldON API V1
+  version: 1.0.0
+  description: |-
+    - 사업자등록번호를 기준으로 사업장의 최신정보를 조회하는 기능입니다.
+    - 사업자번호 입력 예시 : 410-82-13426 or 4108213426
+  x-logo: 
+    url: 'https://github.com/myeonggwon/API_2/MoldON_logo.png'
+    altText: A Logo image of MoldON
+
+paths:
+  /GetCompanyInfo:
+    post:
+      summary: GetCompanyInfo
+      tags:
+        - 거래처 정보 조회
+      description: >-
+        사업자등록번호를 기준으로 사업장의 최신정보 조회
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                comp_info:
+                  comp_nm: 사단법인 한국금형산업진흥회
+                  type: 그 외 기타 협회 및 단체
+                  product: ""
+                  tel: 062-945-2216
+                  fax: 062-945-2218
+                  comp_size: 기타
+                  open_date: 2013-08-01
+                  website: ""
+                  e-mail: ""
+                  represantative: 박상오
+                  comp_num: 410-82-13426
+                  corp_num: 204221-0001963
+                  zip_code: 62419
+                  address: 광주광역시 광산구 평동산단로143번길 52광주광역시 광산구 월전동 944
+                comp_state:
+                  comp_stt: 계속사업자
+                  close_date: ""
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response_GetCompanyInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                error: unauthorized
+                status: 401
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_Body_GetCompanyInfo'
+  
+servers:
+  - url: http://ec2-52-79-123-200.ap-northeast-2.compute.amazonaws.com:8090/v1
+    description: Production server
+security:
+  - APIKeyAuth: []
+components:
+  securitySchemes:
+    APIKeyAuth:
+      type: apiKey
+      name: x-mold-apigw-api-key
+      in: header
+  schemas:
+    Response_GetCompanyInfo:
+      description: Respresentation of company information response.
+      type: object
+      properties:
+        comp_info:
+          $ref: '#/components/schemas/comp_info'
+        comp_state:
+          $ref: '#/components/schemas/comp_state'
+    
+    comp_info:
+      description: 기업 상세 정보
+      type: object
+      properties:
+        comp_nm:
+          description: 법인명
+          type: string
+        type:
+          description: 종목
+          type: string
+        product:
+          description: 주요제품
+          type: string
+          nullable: true
+        tel:
+          description: 전화번호
+          type: string
+        fax:
+          description: 팩스번호
+          type: string
+        comp_size:
+          description: 기업규모
+          type: string
+        oepn_date:
+          description: 설립일(신고일)
+          type: string
+        website:
+          description: 홈페이지
+          type: string
+          nullable: true
+        e-mail:
+          description: 회사이메일
+          type: string
+          nullable: true
+        representative:
+          description: 대표자명
+          type: string
+        comp_num:
+          description: 사업자등록번호
+          type: string
+        corp_num:
+          description: 법인등록번호
+          type: string
+        zip_code:
+          description: 우편번호
+          type: string
+        address:
+          description: 회사주소
+          type: string
+    comp_state:
+      description: 기업 상태
+      type: object
+      properties:
+        comp_stt:
+          description: 사업자상태
+          type: string
+        close_date:
+          description: 폐업일자
+          type: string
+          nullable: true
+    Request_Body_GetCompanyInfo:
+      description: Get CompanyInfo
+      required: ["comp_num"]
+      type: object
+      properties:
+        comp_num:
+          type: string
+    
