@@ -6,7 +6,7 @@ info:
     - 사업자등록번호를 기준으로 사업장의 최신정보를 조회하는 기능입니다.
     - 사업자번호 입력 예시 : 410-82-13426 or 4108213426
   x-logo: 
-    url: 'https://github.com/myeonggwon/API_2/MoldON_logo.png'
+    url: 'https://myeonggwon.github.io/GetCompanyInfo/MoldON_logo.png'
     altText: A Logo image of MoldON
 
 paths:
