@@ -1,1 +1,2 @@
-# API_2
+# GetCompanyInfo
+## API repository for search information of account.
