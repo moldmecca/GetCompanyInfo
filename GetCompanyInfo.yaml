@@ -3,10 +3,11 @@ info:
   title: MoldON API V1
   version: 1.0.0
   description: |-
+    거래처 정보 조회
     - 사업자등록번호를 기준으로 사업장의 최신정보를 조회하는 기능입니다.
     - 사업자번호 입력 예시 : 410-82-13426 or 4108213426
   x-logo: 
-    url: 'https://myeonggwon.github.io/GetCompanyInfo/MoldON_logo.png'
+    url: 'https://moldmecca.github.io/GetCompanyInfo/MoldON_logo.png'
     altText: A Logo image of MoldON
 
 paths:
@@ -46,13 +47,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Response_GetCompanyInfo'
-        '401':
-          description: Unauthorized
+        '403':
+          description: API KEY 오류
           content:
             application/json:
               example:
-                error: unauthorized
-                status: 401
+                detail: "The API-key is invalid."      
+        '501':
+          description: 입력값 오류
+          content:
+            application/json:
+              example:
+                detail: "Error : [get_companyinfo] Invalid input value – error message "      
+        '502':
+          description: 크롤링 대상 웹페이지 변경으로 인한 오류
+          content:
+            application/json:
+              example:
+                detail: "Error : [get_companyinfo] Crawling sites may change. Contact the Developer – error message"
+        '503':
+          description: 결과값 반환 오류
+          content:
+            application/json:
+              example:
+                detail: "Error : [get_companyinfo] - error message"  
       requestBody:
         content:
           application/json:
