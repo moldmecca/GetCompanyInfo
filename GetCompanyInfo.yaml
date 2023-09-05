@@ -52,7 +52,7 @@ paths:
           content:
             application/json:
               example:
-                detail: "The API-key is invalid."      
+                detail: "The API-key is invalid.. or The API-key has expired.."      
         '501':
           description: 입력값 오류
           content:
