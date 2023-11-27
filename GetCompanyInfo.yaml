@@ -78,7 +78,7 @@ paths:
               $ref: '#/components/schemas/Request_Body_GetCompanyInfo'
   
 servers:
-  - url: http://ec2-52-79-123-200.ap-northeast-2.compute.amazonaws.com:8090/v1
+  - url: https://api.moldon.org/v1
     description: Production server
 security:
   - APIKeyAuth: []
